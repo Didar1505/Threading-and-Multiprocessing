@@ -1,25 +1,25 @@
-import threading
-import requests
 import time
+import requests
 
 urls = [
-    "https://picsum.photos/200/300",
-    "https://picsum.photos/300/200",
-    "https://picsum.photos/250/250",
-    "https://picsum.photos/400/300",
-    "https://picsum.photos/500/500"
+    "https://www.python.org",
+    "https://www.github.com",
+    "https://www.wikipedia.org",
+    "https://www.stackoverflow.com",
+    "https://www.realpython.com"
 ]
 
-def download_image(url, index):
-    print(f"Downloading image {index}")
-    r = requests.get(url)
-    with open(f"image_{index}.jpg", "wb") as f:
-        f.write(r.content)
-    print(f"Finished image {index}")
+def fetch(url):
+    print(f"Fetching {url}")
+    resp = requests.get(url)
+    print(f"Done {url}, length: {len(resp.text)}")
+    return len(resp.text)
 
 start = time.time()
-# ВАШ КОД ...
-
-
+results = []
+for url in urls:
+    results.append(fetch(url))
 end = time.time()
-print(f"All images downloaded in {end - start:.2f}s")
+
+print("Sequential results:", results)
+print(f"Sequential time taken: {end-start:.2f} seconds")
